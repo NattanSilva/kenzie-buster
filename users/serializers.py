@@ -3,6 +3,8 @@ from rest_framework.validators import UniqueValidator
 
 from .models import User
 
+# from movies.serializers import MovieSerializer
+
 
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -28,6 +30,8 @@ class UserSerializer(serializers.Serializer):
     birthdate = serializers.DateField(allow_null=True, default=None)
     is_employee = serializers.BooleanField(allow_null=True, default=False)
     is_superuser = serializers.BooleanField(read_only=True)
+
+    # movies = MovieSerializer(many=True, read_only=True)
 
     def create(self, validated_data: dict) -> User:
         if validated_data["is_employee"]:
