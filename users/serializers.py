@@ -38,3 +38,14 @@ class UserSerializer(serializers.Serializer):
             return User.objects.create_superuser(**validated_data)
         else:
             return User.objects.create_user(**validated_data)
+        
+    def update(self, instance: User, validated_data: dict):
+        for key, value in validated_data.items():
+            if key == "password":
+                instance.set_password(value)
+            else:
+                setattr(instance, key, value)
+        
+        instance.save()
+
+        return instance
